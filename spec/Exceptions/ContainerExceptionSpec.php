@@ -17,4 +17,9 @@ class ContainerExceptionSpec extends ObjectBehavior
     {
         $this->shouldImplement('Psr\Container\ContainerExceptionInterface');
     }
+
+    function it_implements_throwable()
+    {
+        $this->shouldImplement('Throwable');
+    }
 }

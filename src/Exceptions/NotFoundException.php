@@ -3,7 +3,8 @@
 namespace Matthewbdaly\Ernie\Exceptions;
 
 use Psr\Container\NotFoundExceptionInterface;
+use Exception;
 
-class NotFoundException implements NotFoundExceptionInterface
+class NotFoundException extends Exception implements NotFoundExceptionInterface
 {
 }

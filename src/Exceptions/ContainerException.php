@@ -3,7 +3,8 @@
 namespace Matthewbdaly\Ernie\Exceptions;
 
 use Psr\Container\ContainerExceptionInterface;
+use Exception;
 
-class ContainerException implements ContainerExceptionInterface
+class ContainerException extends Exception implements ContainerExceptionInterface
 {
 }

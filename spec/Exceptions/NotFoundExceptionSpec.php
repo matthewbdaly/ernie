@@ -17,4 +17,9 @@ class NotFoundExceptionSpec extends ObjectBehavior
     {
         $this->shouldImplement('Psr\Container\NotFoundExceptionInterface');
     }
+
+    function it_implements_throwable()
+    {
+        $this->shouldImplement('Throwable');
+    }
 }
