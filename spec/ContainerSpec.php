@@ -17,4 +17,9 @@ class ContainerSpec extends ObjectBehavior
     {
         $this->shouldImplement('Psr\Container\ContainerInterface');
     }
+
+    function it_can_get_simple_classes()
+    {
+        $this->get('DateTime')->shouldReturnAnInstanceOf('DateTime');
+    }
 }
