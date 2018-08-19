@@ -17,7 +17,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Matthewbdaly\Ernie\\": "src/"
+            "Matthewbdaly\\Ernie\\": "src/"
         }
     }
 }
