@@ -22,4 +22,9 @@ class ContainerSpec extends ObjectBehavior
     {
         $this->get('DateTime')->shouldReturnAnInstanceOf('DateTime');
     }
+
+    function it_returns_not_found_exception()
+    {
+        $this->shouldThrow('Matthewbdaly\Ernie\Exceptions\NotFoundException')->duringGet('UnknownClass');
+    }
 }
