@@ -19,5 +19,8 @@
         "psr-4": {
             "Matthewbdaly\\Ernie\\": "src/"
         }
+    },
+    "provide": {
+        "psr/container-implementation": "1.0.0"
     }
 }
