@@ -23,6 +23,11 @@ class ContainerSpec extends ObjectBehavior
         $this->get('DateTime')->shouldReturnAnInstanceOf('DateTime');
     }
 
+    function it_has_simple_classes()
+    {
+        $this->has('DateTime')->shouldReturn(true);
+    }
+
     function it_returns_not_found_exception_if_class_cannot_be_found()
     {
         $this->shouldThrow('Matthewbdaly\Ernie\Exceptions\NotFoundException')->duringGet('UnknownClass');

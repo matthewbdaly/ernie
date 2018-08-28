@@ -21,5 +21,6 @@ class Container implements ContainerInterface
 
     public function has($id)
     {
+        return (new ReflectionClass($id))->isInstantiable();
     }
 }
