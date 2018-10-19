@@ -25,7 +25,10 @@ class Container implements ContainerInterface
     {
         $item = $this->resolve($id);
         if ($item instanceof \ReflectionClass) {
-            return $item->newInstance();
+            $constructor = $item->getConstructor();
+            if (is_null($constructor) || $constructor->getNumberOfRequiredParameters() == 0) {
+                return $item->newInstance();
+            }
         }
         return $item;
     }
