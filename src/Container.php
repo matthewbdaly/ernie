@@ -13,6 +13,7 @@ use ReflectionException;
 class Container implements ContainerInterface
 {
     private $services = [];
+
     /**
      * Get class
      *
@@ -23,6 +24,10 @@ class Container implements ContainerInterface
     public function get($id)
     {
         try {
+            if (isset($this->services[$id])) {
+                return (new ReflectionClass($this->services[$id]))
+                    ->newInstance();
+            }
             return (new ReflectionClass($id))
                 ->newInstance();
         } catch (ReflectionException $e) {
