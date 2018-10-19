@@ -33,4 +33,11 @@ class ContainerSpec extends ObjectBehavior
         $this->shouldThrow('Matthewbdaly\Ernie\Exceptions\NotFoundException')
             ->duringGet('UnknownClass');
     }
+
+    function it_can_register_dependencies()
+    {
+        $toResolve = new class {
+        };
+        $this->set('Foo\Bar', $toResolve)->shouldReturn(true);
+    }
 }

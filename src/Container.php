@@ -12,6 +12,7 @@ use ReflectionException;
  */
 class Container implements ContainerInterface
 {
+    private $services = [];
     /**
      * Get class
      *
@@ -38,5 +39,11 @@ class Container implements ContainerInterface
     public function has($id)
     {
         return (new ReflectionClass($id))->isInstantiable();
+    }
+
+    public function set(string $key, $value)
+    {
+        $this->services[$key] = $value;
+        return true;
     }
 }
