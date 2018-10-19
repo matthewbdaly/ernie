@@ -1,6 +1,6 @@
 <?php
 
-namespace Matthewbdaly\Ernie;
+namespace Fixtures;
 
 use DateTime;
 

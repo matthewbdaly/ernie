@@ -21,6 +21,11 @@
             "Matthewbdaly\\Ernie\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Fixtures\\": "fixtures/"
+        }
+    },
     "provide": {
         "psr/container-implementation": "1.0.0"
     }

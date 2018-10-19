@@ -6,6 +6,7 @@ use Matthewbdaly\Ernie\Container;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use DateTime;
+use Fixtures\ClassWithDependencies;
 
 class ContainerSpec extends ObjectBehavior
 {
@@ -80,7 +81,7 @@ class ContainerSpec extends ObjectBehavior
     
     function it_can_resolve_dependencies()
     {
-        $toResolve = \Matthewbdaly\Ernie\ClassWithDependencies::class;
+        $toResolve = ClassWithDependencies::class;
         $this->set('Foo\Bar', $toResolve);
         $this->get('Foo\Bar')->shouldReturnAnInstanceOf($toResolve);
     }
