@@ -23,16 +23,7 @@ class Container implements ContainerInterface
      */
     public function get($id)
     {
-        try {
-            if (isset($this->services[$id])) {
-                return (new ReflectionClass($this->services[$id]))
-                    ->newInstance();
-            }
-            return (new ReflectionClass($id))
-                ->newInstance();
-        } catch (ReflectionException $e) {
-            throw new NotFoundException($e);
-        }
+        return $this->resolve($id)->newInstance();
     }
 
     /**
@@ -43,12 +34,24 @@ class Container implements ContainerInterface
      */
     public function has($id)
     {
-        return (new ReflectionClass($id))->isInstantiable();
+        return $this->resolve($id)->isInstantiable();
     }
 
     public function set(string $key, $value)
     {
         $this->services[$key] = $value;
         return $this;
+    }
+
+    private function resolve($id)
+    {
+        try {
+            if (isset($this->services[$id])) {
+                return (new ReflectionClass($this->services[$id]));
+            }
+            return (new ReflectionClass($id));
+        } catch (ReflectionException $e) {
+            throw new NotFoundException($e);
+        }
     }
 }

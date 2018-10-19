@@ -48,4 +48,12 @@ class ContainerSpec extends ObjectBehavior
         $this->set('Foo\Bar', $toResolve);
         $this->get('Foo\Bar')->shouldReturnAnInstanceOf($toResolve);
     }
+
+    function it_can_resolve_if_registered_dependencies_instantiable()
+    {
+        $toResolve = new class {
+        };
+        $this->set('Foo\Bar', $toResolve);
+        $this->has('Foo\Bar')->shouldReturn(true);
+    }
 }
