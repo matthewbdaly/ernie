@@ -30,6 +30,7 @@ class ContainerSpec extends ObjectBehavior
 
     function it_returns_not_found_exception_if_class_cannot_be_found()
     {
-        $this->shouldThrow('Matthewbdaly\Ernie\Exceptions\NotFoundException')->duringGet('UnknownClass');
+        $this->shouldThrow('Matthewbdaly\Ernie\Exceptions\NotFoundException')
+            ->duringGet('UnknownClass');
     }
 }
