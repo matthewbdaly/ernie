@@ -23,7 +23,11 @@ class Container implements ContainerInterface
      */
     public function get($id)
     {
-        return $this->resolve($id)->newInstance();
+        $item = $this->resolve($id);
+        if ($item instanceof \ReflectionClass) {
+            return $item->newInstance();
+        }
+        return $item;
     }
 
     /**
@@ -34,7 +38,11 @@ class Container implements ContainerInterface
      */
     public function has($id)
     {
-        return $this->resolve($id)->isInstantiable();
+        $item = $this->resolve($id);
+        if ($item instanceof \ReflectionClass) {
+            return $item->isInstantiable();
+        }
+        return isset($item);
     }
 
     /**
@@ -61,6 +69,9 @@ class Container implements ContainerInterface
     {
         try {
             if (isset($this->services[$id])) {
+                if (is_callable($this->services[$id])) {
+                    return $this->services[$id]();
+                }
                 return (new ReflectionClass($this->services[$id]));
             }
             return (new ReflectionClass($id));

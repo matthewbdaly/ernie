@@ -5,6 +5,7 @@ namespace spec\Matthewbdaly\Ernie;
 use Matthewbdaly\Ernie\Container;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use DateTime;
 
 class ContainerSpec extends ObjectBehavior
 {
@@ -47,6 +48,26 @@ class ContainerSpec extends ObjectBehavior
         };
         $this->set('Foo\Bar', $toResolve);
         $this->get('Foo\Bar')->shouldReturnAnInstanceOf($toResolve);
+    }
+    
+    function it_can_resolve_registered_invokable()
+    {
+        $toResolve = new class {
+            public function __invoke() {
+                return new DateTime;
+            }
+        };
+        $this->set('Foo\Bar', $toResolve);
+        $this->get('Foo\Bar')->shouldReturnAnInstanceOf('DateTime');
+    }
+    
+    function it_can_resolve_registered_callable()
+    {
+        $toResolve = function () {
+            return new DateTime;
+        };
+        $this->set('Foo\Bar', $toResolve);
+        $this->get('Foo\Bar')->shouldReturnAnInstanceOf('DateTime');
     }
 
     function it_can_resolve_if_registered_dependencies_instantiable()
