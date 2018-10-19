@@ -24,13 +24,13 @@ class Container implements ContainerInterface
     public function get($id)
     {
         $item = $this->resolve($id);
-        if ($item instanceof \ReflectionClass) {
-            $constructor = $item->getConstructor();
-            if (is_null($constructor) || $constructor->getNumberOfRequiredParameters() == 0) {
-                return $item->newInstance();
-            }
+        if (!($item instanceof \ReflectionClass)) {
+            return $item;
         }
-        return $item;
+        $constructor = $item->getConstructor();
+        if (is_null($constructor) || $constructor->getNumberOfRequiredParameters() == 0) {
+            return $item->newInstance();
+        }
     }
 
     /**
