@@ -44,6 +44,6 @@ class Container implements ContainerInterface
     public function set(string $key, $value)
     {
         $this->services[$key] = $value;
-        return true;
+        return $this;
     }
 }

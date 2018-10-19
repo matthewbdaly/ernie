@@ -38,6 +38,6 @@ class ContainerSpec extends ObjectBehavior
     {
         $toResolve = new class {
         };
-        $this->set('Foo\Bar', $toResolve)->shouldReturn(true);
+        $this->set('Foo\Bar', $toResolve)->shouldReturn($this);
     }
 }
