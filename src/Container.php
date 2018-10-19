@@ -31,6 +31,11 @@ class Container implements ContainerInterface
         if (is_null($constructor) || $constructor->getNumberOfRequiredParameters() == 0) {
             return $item->newInstance();
         }
+        $params = [];
+        foreach ($constructor->getParameters() as $param) {
+            $params[] = $this->get($param->getType()->getName());
+        }
+        return $item->newInstanceArgs($params);
     }
 
     /**

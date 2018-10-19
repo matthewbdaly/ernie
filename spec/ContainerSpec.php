@@ -77,4 +77,11 @@ class ContainerSpec extends ObjectBehavior
         $this->set('Foo\Bar', $toResolve);
         $this->has('Foo\Bar')->shouldReturn(true);
     }
+    
+    function it_can_resolve_dependencies()
+    {
+        $toResolve = \Matthewbdaly\Ernie\ClassWithDependencies::class;
+        $this->set('Foo\Bar', $toResolve);
+        $this->get('Foo\Bar')->shouldReturnAnInstanceOf($toResolve);
+    }
 }
