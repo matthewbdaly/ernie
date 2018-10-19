@@ -37,12 +37,26 @@ class Container implements ContainerInterface
         return $this->resolve($id)->isInstantiable();
     }
 
+    /**
+     * Set class
+     *
+     * @param string $key   Key to register.
+     * @param mixed  $value Value to register.
+     * @return Container
+     */
     public function set(string $key, $value)
     {
         $this->services[$key] = $value;
         return $this;
     }
 
+    /**
+     * Resolve service from ID
+     *
+     * @param mixed $id ID of class.
+     * @return mixed
+     * @throws NotFoundException ID not found.
+     */
     private function resolve($id)
     {
         try {
