@@ -33,7 +33,9 @@ class Container implements ContainerInterface
         }
         $params = [];
         foreach ($constructor->getParameters() as $param) {
-            $params[] = $this->get($param->getType()->getName());
+            if ($type = $param->getType()) {
+                $params[] = $this->get($type->getName());
+            }
         }
         return $item->newInstanceArgs($params);
     }
