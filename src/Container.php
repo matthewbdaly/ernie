@@ -24,7 +24,7 @@ class Container implements ContainerInterface
     public function get($id)
     {
         $item = $this->resolve($id);
-        if (!($item instanceof \ReflectionClass)) {
+        if (!($item instanceof ReflectionClass)) {
             return $item;
         }
         $constructor = $item->getConstructor();
@@ -47,7 +47,7 @@ class Container implements ContainerInterface
     public function has($id)
     {
         $item = $this->resolve($id);
-        if ($item instanceof \ReflectionClass) {
+        if ($item instanceof ReflectionClass) {
             return $item->isInstantiable();
         }
         return isset($item);
