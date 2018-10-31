@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Matthewbdaly\Ernie;
 
@@ -87,7 +87,7 @@ class Container implements ContainerInterface
             }
             return (new ReflectionClass($name));
         } catch (ReflectionException $e) {
-            throw new NotFoundException($e);
+            throw new NotFoundException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }
