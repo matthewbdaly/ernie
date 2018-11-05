@@ -27,17 +27,7 @@ class Container implements ContainerInterface
         if (!($item instanceof ReflectionClass)) {
             return $item;
         }
-        $constructor = $item->getConstructor();
-        if (is_null($constructor) || $constructor->getNumberOfRequiredParameters() == 0) {
-            return $item->newInstance();
-        }
-        $params = [];
-        foreach ($constructor->getParameters() as $param) {
-            if ($type = $param->getType()) {
-                $params[] = $this->get($type->getName());
-            }
-        }
-        return $item->newInstanceArgs($params);
+        return $this->getInstance($item);
     }
 
     /**
@@ -89,5 +79,26 @@ class Container implements ContainerInterface
         } catch (ReflectionException $e) {
             throw new NotFoundException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * Get instance of item
+     *
+     * @param ReflectionClass $item Reflected class.
+     * @return mixed
+     */
+    private function getInstance(ReflectionClass $item)
+    {
+        $constructor = $item->getConstructor();
+        if (is_null($constructor) || $constructor->getNumberOfRequiredParameters() == 0) {
+            return $item->newInstance();
+        }
+        $params = [];
+        foreach ($constructor->getParameters() as $param) {
+            if ($type = $param->getType()) {
+                $params[] = $this->get($type->getName());
+            }
+        }
+        return $item->newInstanceArgs($params);
     }
 }
