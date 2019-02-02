@@ -29,6 +29,11 @@ class ContainerSpec extends ObjectBehavior
         $this->has('DateTime')->shouldReturn(true);
     }
 
+    function it_does_not_have_unknown_classes()
+    {
+        $this->has('UnknownClass')->shouldReturn(false);
+    }
+
     function it_returns_not_found_exception_if_class_cannot_be_found()
     {
         $this->shouldThrow('Matthewbdaly\Ernie\Exceptions\NotFoundException')

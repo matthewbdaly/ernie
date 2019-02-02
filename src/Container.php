@@ -38,7 +38,11 @@ class Container implements ContainerInterface
      */
     public function has($id)
     {
-        $item = $this->resolve($id);
+        try {
+            $item = $this->resolve($id);
+        } catch (NotFoundException $e) {
+            return false;
+        }
         if ($item instanceof ReflectionClass) {
             return $item->isInstantiable();
         }
