@@ -6,6 +6,8 @@ use Matthewbdaly\Ernie\Container;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use DateTime;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class ContainerSpec extends ObjectBehavior
 {
@@ -94,5 +96,29 @@ class ContainerSpec extends ObjectBehavior
         });
         $this->set('Foo\Bar', $toResolve);
         $this->get('Foo\Bar')->shouldReturnAnInstanceOf($toResolve);
+    }
+
+    function it_can_resolve_interface_to_instance()
+    {
+        $this->set('Psr\Log\LoggerInterface', function () {
+            $log = new Logger('app');
+            $log->pushHandler(new StreamHandler('../logs/site.log', Logger::WARNING));
+            return $log;
+        });
+        $this->has('Psr\Log\LoggerInterface')->shouldReturn(true);
+        $this->get('Psr\Log\LoggerInterface')->shouldReturnAnInstanceOf('Monolog\Logger');
+    }
+
+    function it_can_resolve_interface_to_instance_from_invokable()
+    {
+        $this->set('Psr\Log\LoggerInterface', new class {
+            public function __invoke() {
+                $log = new Logger('app');
+                $log->pushHandler(new StreamHandler('../logs/site.log', Logger::WARNING));
+                return $log;
+            }
+        });
+        $this->has('Psr\Log\LoggerInterface')->shouldReturn(true);
+        $this->get('Psr\Log\LoggerInterface')->shouldReturnAnInstanceOf('Monolog\Logger');
     }
 }
